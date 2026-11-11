@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="256" height="256"><defs>
+<radialGradient id="bgD" cx=".5" cy=".38" r=".95"><stop offset="0" stop-color="#8a5fc8"/><stop offset=".55" stop-color="#3a2468"/><stop offset="1" stop-color="#0d0719"/></radialGradient>
+<linearGradient id="gSil" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1d1626"/><stop offset="1" stop-color="#050309"/></linearGradient></defs>
+<rect width="64" height="64" fill="url(#bgD)"/>
+<circle cx="49" cy="13" r="7" fill="#efe4ff" opacity=".32"/>
+<g stroke="#e8c24a" stroke-width="1" stroke-linecap="round" opacity=".7"><path d="M6 62V48M6 48l-2-3M6 48l2-3M12 62V50M12 50l-2-3M12 50l2-3M52 62V49M52 49l-2-3M52 49l2-3M58 62V47M58 47l-2-3M58 47l2-3"/></g>
+<path d="M32 22V62" stroke="#e6d7ff" stroke-width="3.4" stroke-linecap="round"/><path d="M32 22V62" stroke="url(#gSil)" stroke-width="2" stroke-linecap="round"/>
+<path d="M10 33H54" stroke="#e6d7ff" stroke-width="3.4" stroke-linecap="round"/><path d="M10 33H54" stroke="url(#gSil)" stroke-width="2" stroke-linecap="round"/>
+<g stroke="#e8c24a" stroke-width="1" stroke-linecap="round"><path d="M10 33l-5-3M10 33l-6 1M10 33l-5 4M54 33l5-3M54 33l6 1M54 33l5 4"/></g>
+<path d="M55 40V10" stroke="#e6d7ff" stroke-width="2.2" stroke-linecap="round"/>
+<path d="M55 10C48 6 40 9 37 16C44 12 50 13 55 15Z" fill="#efe4ff" stroke="#6a3fa0" stroke-width=".8" stroke-linejoin="round"/>
+<path d="M23 31H41L45 56L40 52L37 58L32 53L27 58L24 52L19 56Z" fill="#e6d7ff"/>
+<path d="M23.8 31.8H40.2L43.9 54.6L40 51.4L37 56.6L32 52L27 56.6L24 51.4L20.1 54.6Z" fill="url(#gSil)"/>
+<circle cx="32" cy="22" r="7.2" fill="#e6d7ff"/><circle cx="32" cy="22" r="6.3" fill="url(#gSil)"/>
+<path d="M17 19.5Q32 14.5 47 19.5L42.5 22Q32 19 21.5 22Z" fill="#e6d7ff"/><path d="M18.6 19.6Q32 15.6 45.4 19.6L41.9 21.2Q32 18.4 22.1 21.2Z" fill="url(#gSil)"/>
+<path d="M24 18.5Q24.5 7.5 32 7.5Q39.5 7.5 40 18.5Z" fill="#e6d7ff"/><path d="M25 18Q25.6 8.6 32 8.6Q38.4 8.6 39 18Z" fill="url(#gSil)"/>
+<circle cx="29.4" cy="22.6" r="1.4" fill="#d8ffd8"/><circle cx="34.6" cy="22.6" r="1.4" fill="#d8ffd8"/>
+<g stroke="#e8c24a" stroke-width="1" stroke-linecap="round"><path d="M26 24l-4 3M38 24l4 3M27 26l-3 4M37 26l3 4"/></g>
+</svg>
