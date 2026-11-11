@@ -99,7 +99,7 @@ body{background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"N
 .cell.ce::before{background-color:rgba(125,170,255,.13);--ol:rgba(228,200,100,.95)}
 .cell.bt::before{border-top:2px dashed var(--ol)}.cell.br::before{border-right:2px dashed var(--ol)}.cell.bb::before{border-bottom:2px dashed var(--ol)}.cell.bl::before{border-left:2px dashed var(--ol)}
 .cell.cm::before,.cell.ce::before{box-sizing:border-box}
-.cell.rn::before{background-image:repeating-linear-gradient(104deg,transparent 0 5px,rgba(215,238,255,.38) 5px 6px)}
+.cell.rn::before{background-image:repeating-linear-gradient(104deg,transparent 0 5px,rgba(215,238,255,.38) 5px 6px);animation:rainfall .5s linear infinite}
 @keyframes rainfall{from{background-position:0 0}to{background-position:-6px 22px}}
 .wisps{position:absolute;inset:0;pointer-events:none;z-index:5;overflow:hidden;border-radius:6px}
 .wp{position:absolute;left:0;top:0;width:22%;height:22%;opacity:.55;pointer-events:none;filter:blur(1.5px);background:radial-gradient(closest-side at 35% 55%,rgba(255,255,255,.36),transparent),radial-gradient(closest-side at 62% 42%,rgba(235,245,255,.32),transparent),radial-gradient(closest-side at 80% 60%,rgba(255,255,255,.24),transparent)}
@@ -107,6 +107,12 @@ body{background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"N
 @keyframes szspin{to{transform:rotate(360deg)}}
 .sh.sz{animation:szp .9s infinite alternate}
 .sh.sz::after{content:"";position:absolute;inset:-9%;border-radius:50%;border:2px dotted rgba(205,230,255,.9);animation:szspin 2.6s linear infinite;pointer-events:none}
+/* ---- The Scarecrow of Death: wheat fields (mine = gold, the opponent's = copper), dashed outline around each region ---- */
+.wf{position:absolute;inset:0;pointer-events:none;z-index:0;box-sizing:border-box;background-color:var(--wb);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cg stroke='%23b8860b' stroke-width='1' fill='none' stroke-linecap='round' opacity='.5'%3E%3Cpath d='M5 18V8M5 8l-2-3M5 8l2-3M5 12l-2-2M5 12l2-2'/%3E%3Cpath d='M15 18V9M15 9l-2-3M15 9l2-3M15 13l-2-2M15 13l2-2'/%3E%3C/g%3E%3C/svg%3E");background-size:50% 50%}
+.wf.wm{--wb:rgba(236,200,80,.22);--wl:rgba(190,135,15,.95)}
+.wf.we{--wb:rgba(215,150,95,.22);--wl:rgba(165,85,40,.95)}
+.wf.bt{border-top:2px dashed var(--wl)}.wf.br{border-right:2px dashed var(--wl)}.wf.bb{border-bottom:2px dashed var(--wl)}.wf.bl{border-left:2px dashed var(--wl)}
+.sh.sl::after{content:"";position:absolute;inset:-7%;border-radius:50%;border:2px dashed rgba(190,160,255,.95);animation:szspin 3.4s linear infinite;pointer-events:none}
 .ic{width:1.15em;height:1.15em;display:inline-block;vertical-align:-.2em;flex:none}
 .sh .ch{position:absolute;inset:9%;width:82%;height:82%;display:block;clip-path:var(--cp)}
 .sk small.tg{color:var(--mu);font-size:.72em}
@@ -290,7 +296,7 @@ witch:{n:"Wandering Witch",rar:"rare",el:"arcane",hp:60,mv:1,pop:3,pas:"",blk:[]
      alt:{on:"fly",v:"strike",n:"Lightning Strike",d:8,chain:0,x:"บิน: เป้าเดียว ×2"}},
     {n:"Alchemist Potions",i:"potion",v:"potion",k:"p",r:1,cd:2,x:"เพื่อน = ฟื้นฟู 2 ตา ตาละ 3 · ศัตรู = Poison"},
     {n:"Witch's Broomstick",i:"broom",v:"swirl",k:"f",cd:3,x:"บิน 3 เทิร์น เดิน 2 ช่อง (CD นับหลังลงพื้น)"}]},
-redscales:{n:"Red Scales",rar:"epic",el:"dragon",hp:150,mv:1,pop:5,pf:1,utags:["dragon","fire"],
+redscales:{n:"Red Scales",rar:"epic",el:"dragon",hp:150,mv:1,pop:6,pf:1,utags:["dragon","fire"],
  flyRangedMul:2,rangedGroundImmune:1,res:{fire:.5,water:3},
  pas:"มังกร: บินตลอด โจมตีแล้วลงพื้นจนถึงเทิร์นตัวเอง · ตอนบินรับดาเมจระยะไกล ×2 · ตอนอยู่พื้นโดนระยะไกลไม่ได้ · รับดาเมจแท็กไฟ −50% แท็กน้ำ +200%",
  blk:[],
@@ -302,14 +308,14 @@ jugger:{n:"Juggerknight",rar:"epic",el:"royal",hp:150,mv:1,pop:4,utags:["human",
  blk:[{p:.5,c:["phys"],l:["low","mid","high"]}],
  s:[{n:"Steel Giant Sword",i:"gsword",v:"gsword",k:"t",r:1,d:6,c:"phys",l:"low",cd:0,stunP:.2,stun:1,tags:["phys","sword","melee","ground","kingdom"],x:"โอกาสสตัน 20% · ดาบอาณาจักร +50% ต่อมังกร/ภูติ/ตำนาน"},
     {n:"Crushing Leap",i:"leap",v:"leap",k:"L",r:2,d:10,c:"phys",l:"high",cd:3,stun:1,tags:["phys","high","sword","ground","kingdom"],x:"กระโดดใส่ศัตรู ผลักออก 1 ช่องแล้วยืนแทนที่ · สตัน 1 ตา"}]},
-hunter:{n:"Beast Hunter",rar:"epic",el:"wind",hp:90,mv:1,pop:4,utags:["human"],
+hunter:{n:"Beast Hunter",rar:"epic",el:"wind",hp:90,mv:1,pop:5,utags:["human"],
  rngIn:1.5,healMul:.5,curse:1,
  pas:"Curse of Master: รับโล่/สถานะช่วยเหลือจากทีมไม่ได้ (ฟื้นฟูได้ แต่ลดเหลือ 50%) · โดนระยะไกล +50% (ยกเว้นจากมังกร/อสูร)",
  blk:[],
  s:[{n:"Jade Katana",i:"katana",v:"katana",k:"t",r:1,d:6,bd:12,bleedB:2,aa:1,c:"phys",l:"low",cd:1,tags:["phys","sword","melee","ground"],x:"ใส่มังกร/อสูร 12 + Bleeding 2 ตา · ตีมังกร/อสูรที่บินอยู่ได้"},
     {n:"Qi Tian Slash",i:"qislash",v:"qislash",k:"q",r:3,d:5,bd:9,aa:1,c:"phys",l:"mid",cd:3,tags:["phys","sword","ground","mid"],x:"คลื่นดาบตรง 3 ช่อง เลือก 1 ใน 8 ทิศ ทะลุโดนศัตรูทุกตัว · ใส่มังกร/อสูร 9 และตีตัวที่บินอยู่ได้"},
     {n:"Awakening",i:"awaken",v:"awaken",k:"v",cd:4,x:"3 เทิร์น: เดิน 2 ช่อง · ดาเมจ +1 (+3 ใส่มังกร/อสูร) · โดนมังกร/อสูร −90% (CD นับหลังหมด)"}]},
-leviathan:{n:"Ocean Leviathan",rar:"epic",el:"frost",hp:180,mv:1,pop:5,utags:["legend","monster","water"],
+leviathan:{n:"Ocean Leviathan",rar:"epic",el:"frost",hp:160,mv:1,pop:5,utags:["legend","monster","water"],
  res:{water:.7,earth:1.5,wind:1.5},stunRes:.1,mulRanged:.8,mulMelee:1.2,
  pas:"Iron Body: โอกาสโดนสตัน −10% · โดนระยะไกล −20% · โดนระยะใกล้ +20% · โดนแท็กน้ำ −30% · โดนแท็กดิน/ลม +50%",
  blk:[],
@@ -322,9 +328,25 @@ nimbora:{n:"Nimbora",rar:"epic",el:"storm",hp:100,mv:1,pop:5,utags:[],blk:[],
      alt:{on:"sz",n:"Lightning Field",i:"lfield",k:"N",r:"โซนเมฆทั้งหมด",cd:1,tags:["magic","lightning"],x:"เลือกช่องโซนเมฆ ผ่าสายฟ้าที่จุดนั้น + ศัตรูสุ่ม 1 คนในระยะ 3 จากจุดกลาง + 30% สายฟ้าสุ่มอีก 1 ลูก (ชิ่งได้)"}},
     {n:"Zone Created",i:"zonecloud",k:"z",r:2,cd:0,x:"ชั้น 1 ฟรี → ชั้น 2 ใช้ 2 AP → ชั้น 3 ฟรี แต่ละชั้นเปลี่ยน 1 ช่องในระยะ 2 เป็นโซนเมฆถาวร · รีเซ็ตต้นเทิร์นถัดไป",
      alt:{on:"sz",n:"Cloud Dash",i:"cdash",k:"c",r:3,cd:2,x:"พุ่งไปช่องโซนเมฆรอบตัวในระยะ 3 ไม่ใช้แต้ม"}},
-    {n:"Overload",i:"overload",k:"x",cd:4,x:"Super Zone 4 เทิร์น (ไม่รวมเทิร์นที่ร่าย): เมฆประจำตัว 5×5 ทุกโซนเมฆมีฝนตกตลอด · สกิล 1 → Lightning Field · สกิล 2 → Cloud Dash (CD 4 นับหลังจบ)"}]}};
-const KEYS=Object.keys(R),CAP=15,RAR={common:"Common",uncommon:"Uncommon",rare:"Rare",epic:"Epic",legend:"Legend"};
-const TAGN={phys:"กายภาพ",magic:"เวทย์",melee:"ระยะใกล้",ranged:"ระยะไกล",ground:"พื้นดิน",fire:"ไฟ",water:"น้ำ",sword:"ดาบ",arrow:"ธนู",kingdom:"ดาบอาณาจักร",claw:"กรงเล็บ",dagger:"มีด",lightning:"สายฟ้า",wind:"ลม",earth:"ดิน",breath:"ลมหายใจ",tail:"หาง",high:"โจมตีระดับสูง",mid:"โจมตีระดับกลาง"};
+    {n:"Overload",i:"overload",k:"x",cd:4,x:"Super Zone 4 เทิร์น (ไม่รวมเทิร์นที่ร่าย): เมฆประจำตัว 5×5 ทุกโซนเมฆมีฝนตกตลอด · สกิล 1 → Lightning Field · สกิล 2 → Cloud Dash (CD 4 นับหลังจบ)"}]},
+scarecrowd:{n:"The Scarecrow of Death",rar:"epic",el:"shadow",hp:120,mv:1,pop:5,utags:["spirit","straw","dark"],
+ res:{fire:2,earth:.8,wind:.8,water:.8},blk:[],
+ pas:"Farmer Spirit: ต้นเทิร์น 75% ปลูก Wheat Field 1 ช่องรอบตัว (ระยะ 1) · โดนไฟ +100% · โดนดิน/ลม/น้ำ −20%",
+ s:[
+  {n:"Wheat Master's Soul",i:"wheatsoul",k:"W",r:1,cd:1,tags:["spirit"],x:"เลือก 2 ช่องรอบตัว (ระยะ 1) เปลี่ยนเป็น Wheat Field ของฝ่ายคุณ"},
+  {n:"The Reaper of Death",i:"reaper",k:"t",r:1,d:7,c:"magic",l:"high",cd:0,v:"reap",tags:["magic","dark","high","ground","melee"],x:"ดาเมจเวทย์ระดับสูง 7 · ไม่มีคูลดาวน์"},
+  {n:"Handmade Scarecrow",i:"handmade",k:"H",r:"Wheat Field ว่างของคุณ",cd:3,tags:["spirit","straw"],x:"สร้าง Scarecrow บน Wheat Field ว่าง แล้วสลายทุ่งนั้นและอีก 3 ช่องสุ่ม · ต้องมีทุ่งมากกว่า 3 ช่อง และ Scarecrow ไม่เกิน 5 ตัว (ครบ 5 ตัว คูลดาวน์หยุดนับ)"},
+  {n:"Scarecrow Mirage",i:"mirage",k:"X",r:"Scarecrow ของคุณ",cd:3,mpc:1,tags:["spirit","straw"],x:"สลับตำแหน่งกับ Scarecrow 1 ตัว · ใช้ MP 1"},
+  {n:"Scarecrow Puppet",i:"puppet",k:"B",r:"เพื่อนร่วมทีม",cd:0,tags:["spirit"],x:"ผูกวิญญาณเพื่อนร่วมทีม 1 คน (ไม่รวมตัวเอง) ถ้าโดนดาเมจจนจะตาย จะสลับที่กับ Scarecrow สุ่ม HP สูงสุด 40 ฟื้นเต็ม ล้างสถานะ · ใช้ได้ 3 ครั้งต่อเกม"}
+ ]},
+scarecrow:{n:"Scarecrow",rar:"common",el:"straw",hp:25,mv:1,pop:0,summon:1,freeMove:1,utags:["straw","spirit"],
+ res:{fire:2},blk:[],
+ pas:"เดินฟรีไม่ใช้ MP แต่เดินได้ 1 ครั้งต่อเทิร์น · โดนไฟ +100% · เรียกมาแล้วใช้ไม่ได้จนถึงเทิร์นถัดไป",
+ s:[
+  {n:"Soul Steal Fist",i:"soulfist",k:"t",r:1,d:7,c:"magic",l:"high",pierce:1,ls:4,cd:1,mpc:1,v:"soulfist",tags:["magic","spirit","ground","high"],x:"ดาเมจทะลวง (ไม่โดนปัดป้อง) เวทย์ระดับสูง 7 ฟื้น HP ให้ตัวเอง 4 · ใช้ MP 1"}
+ ]}};
+const KEYS=Object.keys(R).filter(k=>!R[k].summon),CAP=15,RAR={common:"Common",uncommon:"Uncommon",rare:"Rare",epic:"Epic",legend:"Legend"};
+const TAGN={phys:"กายภาพ",magic:"เวทย์",melee:"ระยะใกล้",ranged:"ระยะไกล",ground:"พื้นดิน",fire:"ไฟ",water:"น้ำ",sword:"ดาบ",arrow:"ธนู",kingdom:"ดาบอาณาจักร",claw:"กรงเล็บ",dagger:"มีด",lightning:"สายฟ้า",wind:"ลม",earth:"ดิน",breath:"ลมหายใจ",tail:"หาง",high:"โจมตีระดับสูง",mid:"โจมตีระดับกลาง",dark:"มืด",spirit:"วิญญาณ",straw:"ฟาง"};
 const hasT=(s,g)=>(s.tags||[]).includes(g);
 // A skill counts as ranged ONLY when it carries the "ranged" tag. Reach alone (range 2+) does not make it ranged,
 // so every ranged attack is declared explicitly on the skill and the rules cannot contradict each other.
@@ -355,7 +377,7 @@ function pushCell(u,t){
   return best?[best.x,best.y]:null;
 }
 const CR=[[0,0],[1,0],[-1,0],[0,1],[0,-1]];
-let U=[],P=[{mp:2,ap:2},{mp:2,ap:2}],sel=null,mode=-1,turn=0,over=-1,pick=[],msg="",FX=[],fxOut=[],nid=1,VX=[],CZ={pc:[],rz:[]};
+let U=[],P=[{mp:2,ap:2},{mp:2,ap:2}],sel=null,mode=-1,turn=0,over=-1,pick=[],msg="",FX=[],fxOut=[],nid=1,VX=[],CZ={pc:[],rz:[]},WF=[],PW=[];
 const $=id=>document.getElementById(id);
 const at=(x,y)=>U.find(u=>u.x===x&&u.y===y);
 const byId=id=>U.find(u=>u.id===id);
@@ -365,11 +387,11 @@ const eff=(u,si)=>{const s=R[u.k].s[si],a=s.alt;let r=s;
   if(a&&(a.on==="ww"?u.ww:a.on==="sz"?u.sz:u.fly)>0)r={...s,...a};
   if(r.k==="z"){const st=u.zs||0;r={...r,cost:st===1?2:0,n:r.n+" · ชั้น "+(st>=3?3:st+1)}}
   return r};
-const dis=u=>u.stunned||u.st.freeze>0;
+const dis=u=>u.stunned||u.st.freeze>0||u.ss>0;
 const hidden=u=>(onlineGame?u.team!==onlineMyTeam:u.team===1)&&u.ww>0;
 const shape=(k,team,ex="")=>{const e=EL[R[k].el];return `<div class="sh s-${R[k].rar} ${ex}" style="--ea:${e.a};--eb:${e.b};--tc:var(${team?"--en":"--me"});--tg:${team?"rgba(255,90,102,.85)":"rgba(53,168,255,.85)"}"><span class="o"></span><span class="n"></span>${CHAR(k)}</div>`};
 const info=s=>[s.d?((s.dt==="true"?"ดาเมจจริง":s.c==="phys"?"กายภาพ":"เวทย์")+" "+s.d):(s.heal?"ฟื้นฟู "+s.heal:null),s.r!==undefined?"ระยะ "+s.r:null,"CD "+s.cd].filter(Boolean).join(" · ");
-const icons=u=>[u.st.bleed>0?stI("bleed",u.st.bleed<10?u.st.bleed:""):"",u.st.poison?stI("poison",u.st.poison):"",u.st.burn?stI("burn",u.st.burn):"",u.st.freeze>0?stI("freeze"):"",u.st.silent>0?stI("silent"):"",u.stunned&&turn===u.team?stI("stun"):"",u.st.regen?stI("regen"):"",u.ww>0?stI("ghost"):"",u.awk>0?stI("awaken"):"",u.sz>0?stI("overload"):""].join("");
+const icons=u=>[u.st.bleed>0?stI("bleed",u.st.bleed<10?u.st.bleed:""):"",u.st.poison?stI("poison",u.st.poison):"",u.st.burn?stI("burn",u.st.burn):"",u.st.freeze>0?stI("freeze"):"",u.st.silent>0?stI("silent"):"",u.stunned&&turn===u.team?stI("stun"):"",u.st.regen?stI("regen"):"",u.ww>0?stI("ghost"):"",u.awk>0?stI("awaken"):"",u.sz>0?stI("overload"):"",u.soul?stI("puppet"):""].join("");
 
 /* ---------- ART: silhouette characters (dark figure, rim light, element colour) ---------- */
 const SP="M0 -4L1.1 -1.1L4 0L1.1 1.1L0 4L-1.1 1.1L-4 0L-1.1 -1.1Z";
@@ -384,16 +406,17 @@ const EL={
  arcane:{a:"#e9d0ff",b:"#7a3fd0",d:"#130828",gl:"#b98cff"},
  dragon:{a:"#ffe08a",b:"#e5281a",d:"#2b0505",gl:"#ff7a2a"},
  royal:{a:"#ffe9a8",b:"#2f5fd0",d:"#09112e",gl:"#7fa6ff"},
- storm:{a:"#e3f0ff",b:"#4a63c8",d:"#0b1030",gl:"#9fc4ff"}
+ storm:{a:"#e3f0ff",b:"#4a63c8",d:"#0b1030",gl:"#9fc4ff"},
+ straw:{a:"#f4e2a1",b:"#9a7418",d:"#1f1608",gl:"#e8c24a"}
 };
 // Pictures live in /img as separate SVG files (img/char/<unit>.svg, img/icon/<name>.svg).
 // To change a picture, replace the file with the same name; nothing else needs editing.
 const IMG="img/";
 const CHAR=k=>`<img class="ch" src="${IMG}char/${k}.svg" alt="" draggable="false" onerror="this.style.visibility='hidden'">`;
 const ICON=n=>`<img class="ic" src="${IMG}icon/${n}.svg" alt="" draggable="false" onerror="this.style.visibility='hidden'">`;
-const ICON_NAMES="arrowRain asteroid aura awaken blast bleed breath broom burn claws dagger dash fireball freeze ghost gsword heart katana leap light lightning meteor oceanSpear poison potion qislash regen rejuv rotate shield silent skull slash smoke stun swords tideShield trophy whirlpool windArrow wing nimbus lfield zonecloud cdash overload".split(" ");
+const ICON_NAMES="arrowRain asteroid aura awaken blast bleed breath broom burn claws dagger dash fireball freeze ghost gsword heart katana leap light lightning meteor oceanSpear poison potion qislash regen rejuv rotate shield silent skull slash smoke stun swords tideShield trophy whirlpool windArrow wing nimbus lfield zonecloud cdash overload wheatsoul reaper handmade mirage puppet soulfist".split(" ");
 // preload everything so frames never flash empty
-KEYS.forEach(k=>{new Image().src=IMG+"char/"+k+".svg"});ICON_NAMES.forEach(n=>{new Image().src=IMG+"icon/"+n+".svg"});
+Object.keys(R).forEach(k=>{new Image().src=IMG+"char/"+k+".svg"});ICON_NAMES.forEach(n=>{new Image().src=IMG+"icon/"+n+".svg"});
 const stI=(n,num)=>`<span class="st">${ICON(n)}${num?`<b>${num}</b>`:""}</span>`;
 
 /* ---------- visual effects (SVG, 10 units per board cell) ---------- */
@@ -555,6 +578,34 @@ overload:(f,x,y)=>TR(x,y,glow("fxWater",24,0,.7)+glow("fxWhite",12,.05,.45)+ring
   +bits(f,8,S_STAR,.1,.6,20,-22)+bits(f,6,S_RAIN,.2,.6,24,16,2,"fall"))
 });
 
+/* ---------- The Scarecrow of Death: effects ---------- */
+Object.assign(FXD,{wheat:1200,wheatout:1100,reap:1000,soulfist:1000,strawup:1200,swapx:1000,soulbind:1300,soulsave:1500});
+Object.assign(FXH,{reap:330,soulfist:300});
+const S_WHEAT=`<path d="M0 3V-3M0 -3l-1.6-2M0 -3l1.6-2M0 0l-1.8-1.6M0 0l1.8-1.6" stroke="#f0c84a" stroke-width=".8" stroke-linecap="round" fill="none"/>`;
+const S_STRAW=`<path d="M-3 -1L3 1M-3 1L3 -1" stroke="#e6cf7a" stroke-width=".9" stroke-linecap="round"/>`;
+const S_WISP=`<circle r="1.7" fill="#b99cff" fill-opacity=".8"/><circle r=".7" fill="#fff"/>`;
+Object.assign(FXR,{
+wheat:(f,x,y,x2,y2,V)=>(f.cells||[]).map((c,i)=>TR(V(c[0])*10+5,V(c[1])*10+5,glow("fxGold",9,i*.04,.5)+bits({x:c[0],y:c[1]},5,S_WHEAT,.05+i*.03,.55,12,-9,i)+ring(5,"#f0c84a",.9,.15,.5))).join(""),
+wheatout:(f,x,y,x2,y2,V)=>(f.cells||[]).map((c,i)=>TR(V(c[0])*10+5,V(c[1])*10+5,glow("fxGold",8,0,.5)+bits({x:c[0],y:c[1]},6,S_WHEAT,0,.7,14,-14,i))).join(""),
+reap:(f,x,y,x2,y2)=>TR(x2,y2,glow("fxPurple",13,.18,.5)
+  +`<g ${K("spin",.05,.5,"--rot:110deg;")}><path d="M-9 -5C-3 -13 10 -10 12 0C8 -6 -2 -8 -9 -5Z" fill="#efe4ff" stroke="#6a3fa0" stroke-width=".7"/><path d="M-9 -5L-13 -9" stroke="#6a3fa0" stroke-width="1.2" stroke-linecap="round"/></g>`
+  +rays(8,5,13,"#c9a8ff",1.1,.22,.4)+ring(9,"#b99cff",1.3,.2,.5)+bits(f,6,S_WISP,.25,.6,16,-12)),
+soulfist:(f,x,y,x2,y2)=>proj(x,y,x2,y2,`<circle r="3.2" fill="url(#fxPurple)"/><circle r="1.4" fill="#fff"/>`,.04,.28)
+  +TR(x2,y2,glow("fxPurple",12,.28,.45)+ring(8,"#c9a8ff",1.4,.28,.45)+rays(6,4,10,"#e6d8ff",1,.28,.35)+bits(f,5,S_WISP,.3,.5,12,-8))
+  +proj(x2,y2,x,y,S_WISP,.38,.4)+proj(x2,y2,x,y,S_WISP,.44,.4)
+  +TR(x,y,glow("fxGreen",9,.72,.3)+bits(f,3,S_PLUS,.74,.3,8,-9)),
+strawup:(f,x,y)=>TR(x,y,glow("fxGold",12,0,.5)
+  +`<g ${K("burst",.05,.5)}><path d="M0 8V-8M-7 -3H7" stroke="#b08a3a" stroke-width="1.6" stroke-linecap="round"/><circle cy="-10" r="4" fill="#e6cf7a" stroke="#8a6a22" stroke-width=".8"/></g>`
+  +ring(8,"#e6cf7a",1.2,.1,.5)+bits(f,8,S_STRAW,.1,.6,20,-14)+bits(f,5,S_WISP,.3,.6,14,-12)),
+swapx:(f,x,y,x2,y2)=>TR(x,y,glow("fxPurple",10,0,.4)+ring(6,"#c9a8ff",1.2,.05,.45))+TR(x2,y2,glow("fxPurple",10,0,.4)+ring(6,"#c9a8ff",1.2,.05,.45))
+  +proj(x,y,x2,y2,S_WISP,.1,.5)+proj(x2,y2,x,y,S_WISP,.1,.5)+proj(x,y,x2,y2,S_WISP,.2,.5)+proj(x2,y2,x,y,S_WISP,.2,.5)
+  +TR(x2,y2,bits(f,4,S_STARP,.5,.4,10,-8))+TR(x,y,bits(f,4,S_STARP,.5,.4,10,-8)),
+soulbind:(f,x,y,x2,y2)=>TR(x,y,glow("fxPurple",9,0,.35))+[0,1,2,3].map(i=>proj(x,y,x2,y2,S_WISP,i*.1,.5)).join("")
+  +TR(x2,y2,glow("fxPurple",13,.4,.5)+ring(9,"#c9a8ff",1.4,.42,.5)+ring(6,"#9be0a8",1,.5,.45)+bits(f,6,S_WISP,.45,.5,14,-10)),
+soulsave:(f,x,y,x2,y2)=>TR(x,y,glow("fxGreen",16,0,.5)+glow("fxWhite",9,.05,.4)+ring(10,"#9be0a8",1.8,.05,.5)+rays(8,5,15,"#d8ffd8",1.2,.05,.45)+bits(f,8,S_PLUS,.1,.6,16,-14))
+  +proj(x,y,x2,y2,S_WISP,.3,.4)+proj(x2,y2,x,y,S_WISP,.3,.4)
+  +TR(x2,y2,glow("fxPurple",12,.4,.5)+ring(8,"#c9a8ff",1.4,.45,.45)+bits(f,5,S_STRAW,.45,.5,16,-10))
+});
 function addFx(o){
   o.dur=o.dur||FXD[o.type]||1200;o.x2=o.x2===undefined?o.x:o.x2;o.y2=o.y2===undefined?o.y:o.y2;
   if(onlineGame&&!applyingRemoteState){fxOut.push({...o});if(fxOut.length>60)fxOut.shift()}
@@ -608,11 +659,11 @@ function setup(){
   };
 }
 const spread=n=>n===1?[4]:Array.from({length:n},(_,i)=>Math.round(1+i*8/(n-1)));
-function mk(k,team,x,y){return{id:nid++,k,team,x,y,hp:R[k].hp,sh:0,cd:R[k].s.map(()=>0),aura:0,ww:0,awk:0,fly:R[k].pf?1:0,sz:0,zs:0,tpUsed:false,stunned:false,st:{poison:0,burn:0,bleed:0,stun:0,freeze:0,silent:0,regen:null}}}
+function mk(k,team,x,y){return{id:nid++,k,team,x,y,hp:R[k].hp,sh:0,cd:R[k].s.map(()=>0),aura:0,ww:0,awk:0,fly:R[k].pf?1:0,sz:0,zs:0,soul:0,pu:0,fm:0,ss:0,tpUsed:false,stunned:false,st:{poison:0,burn:0,bleed:0,stun:0,freeze:0,silent:0,regen:null}}}
 function start(){
   // pick your own positions first; the bot places its random army on its two back rows
   deployStart(pick,0,DEPLOY_SECONDS,layout=>{
-    U=[];over=-1;nid=1;msg="";FX=[];VX=[];CZ={pc:[],rz:[]};
+    U=[];over=-1;nid=1;msg="";FX=[];VX=[];CZ={pc:[],rz:[]};WF=[];
     layout.forEach(l=>U.push(mk(l.k,0,l.x,l.y)));
     const ks=[...KEYS].sort(()=>Math.random()-.5),n=3+Math.floor(Math.random()*3),en=[];let pop=0;
     for(const k of ks){if(en.length>=n)break;if(pop+R[k].pop<=CAP){en.push(k);pop+=R[k].pop}}
@@ -784,6 +835,7 @@ function loseHP(t,d){
   const a=Math.min(t.sh,d);t.sh-=a;t.hp-=d-a;
   num(t,"-"+d,"#ff5a66");
   if(d>0&&t.ww>0)exitWW(t);
+  if(t.hp<=0&&t.soul&&soulSave(t))return;
   if(t.hp<=0){U=U.filter(x=>x!==t);VX=VX.filter(v=>v.owner!==t.id);if(t.k==="nimbora")CZ.rz=CZ.rz.filter(z=>z.team!==t.team);if(sel===t.id)sel=null;if(!U.some(x=>x.team===t.team))over=1-t.team}
 }
 // the Tide Shield cooldown only starts once the silence it caused is gone (it ends by time or is cured)
@@ -791,7 +843,7 @@ function endSilence(u){const g=R[u.k].s.findIndex(x=>x.k==="g");if(g>=0)u.cd[g]=
 function heal(t,a,cure){
   // Curse of Master: healing is allowed but reduced (rounded, at least 1); curing Bleeding/Poison still works
   if(R[t.k].healMul)a=Math.max(1,Math.round(a*R[t.k].healMul));
-  t.hp=Math.min(R[t.k].hp,t.hp+a);num(t,"+"+a,"#43c07a");
+  t.hp=Math.min(MHP(t),t.hp+a);num(t,"+"+a,"#43c07a");
   if(cure){t.st.bleed=0;t.st.poison=0;if(t.st.silent>0){t.st.silent=0;endSilence(t)}}
 }
 function hurt(src,t,s,d){
@@ -799,7 +851,7 @@ function hurt(src,t,s,d){
     if(U.includes(t)&&t.st.freeze<1&&isRanged(s)&&R[t.k].rangedGroundImmune&&!(t.fly>0))msg=R[t.k].n+" อยู่บนพื้น โดนระยะไกลไม่ได้";
     return false;
   }
-  const rule=(R[t.k].blk||[]).find(b=>b.c.includes(s.c)&&b.l.includes(s.l)&&(!b.tg||b.tg===s.tg)&&Math.random()<b.p);
+  const rule=s.pierce?null:(R[t.k].blk||[]).find(b=>b.c.includes(s.c)&&b.l.includes(s.l)&&(!b.tg||b.tg===s.tg)&&Math.random()<b.p);
   if(rule){addFx({type:"block",x:t.x,y:t.y});msg=R[t.k].n+" กันการโจมตีได้!";return false}
   // damage modifiers multiply: kingdom sword vs dragon/spirit/legend, ranged vs a flying dragon, element resistance
   let m=1;const T=R[t.k],beast=isBeast(t);
@@ -841,7 +893,7 @@ function begin(t){
   turn=t;sel=null;mode=-1;P[t]={mp:2,ap:2};
   U.filter(u=>u.team===t).forEach(u=>{
     if(!U.includes(u)||over>=0)return;
-    u.cd=u.cd.map(c=>Math.max(0,c-1));
+    u.cd=u.cd.map((c,i)=>R[u.k].s[i].k==="H"&&scarecrowCount(u.team)>=5?c:Math.max(0,c-1));u.fm=0;u.ss=0;
     u.stunned=u.st.stun>0;u.st.stun=0;
     if(u.st.silent>0){u.st.silent--;if(u.st.silent===0)endSilence(u)}
     if(u.st.regen){addFx({type:"tick",v:"regen",x:u.x,y:u.y});heal(u,u.st.regen.amt);u.st.regen.left--;if(u.st.regen.left<=0)u.st.regen=null}
@@ -859,6 +911,7 @@ function begin(t){
       if(u.sz>0){u.sz--;if(u.sz===0){const xi=R[u.k].s.findIndex(q=>q.k==="x");if(xi>=0)u.cd[xi]=R[u.k].s[xi].cd;addFx({type:"smoke",x:u.x,y:u.y,sz:1.1})}}
       if(over<0)rain(u);
     }
+    if(u.k==="scarecrowd"&&Math.random()<.75){const c=cellsW(u);if(c.length)plantWF(u.team,[rnd(c)])}
     if(!U.includes(u)||over>=0)return;
     if(R[u.k].pf)u.fly=1;else if(u.fly>0){u.fly--;if(u.fly===0)land(u)}
   });
@@ -869,12 +922,16 @@ function begin(t){
 function usable(u,si){
   const s=eff(u,si),p=P[u.team];
   if(turn!==u.team||over>=0||u.cd[si]>0||dis(u)||u.st.silent>0)return false;
-  if(s.k==="m"?p.mp<1:p.ap<(s.cost!==undefined?s.cost:1))return false;
+  if(s.mpc?p.mp<s.mpc:s.k==="m"?p.mp<1:p.ap<(s.cost!==undefined?s.cost:1))return false;
   if(s.k==="w"&&u.ww>0)return false;
   if(s.k==="v"&&u.awk>0)return false;
   if(s.k==="x"&&u.sz>0)return false;
   if(s.k==="z"&&(u.zs||0)>=3)return false;
   if(s.k==="c"&&!cellsFor(u,s).length)return false;
+  if(s.k==="W"&&!cellsW(u).length)return false;
+  if(s.k==="H"&&!(WF.filter(f=>f[2]===u.team).length>3&&scarecrowCount(u.team)<5&&cellsFor(u,s).length))return false;
+  if(s.k==="X"&&!targetsFor(u,si).length)return false;
+  if(s.k==="B"&&((u.pu||0)>=3||!targetsFor(u,si).length))return false;
   if(s.k==="o"&&VX.some(v=>v.owner===u.id))return false;
   if(s.k==="f"&&u.fly>0)return false;
   if(s.fl&&!(u.fly>0))return false;
@@ -889,6 +946,8 @@ function targetsFor(u,si){
   if(s.k==="p")return U.filter(e=>e.st.freeze<1&&d(e)<=s.r&&(e.team===u.team||(targetable(e)&&d(e)>=1)));
   if(s.k==="g")return U.filter(e=>e.team===u.team&&e.st.freeze<1&&d(e)<=s.r&&allyBuffOK(u,e));
   if(s.k==="h"||s.k==="r")return U.filter(e=>e.team===u.team&&e.st.freeze<1&&d(e)<=s.r);
+  if(s.k==="X")return U.filter(e=>e.k==="scarecrow"&&e.team===u.team&&e!==u);
+  if(s.k==="B")return U.filter(e=>e.team===u.team&&e!==u&&!e.soul&&e.st.freeze<1);
   return[];
 }
 // A cell is open to a unit when it is empty, or when it holds a HIDDEN enemy (Wind-Walk): the mover cannot see it,
@@ -925,7 +984,8 @@ function lineCells(u,s){
 }
 function moves(u){
   const m=Math.max(R[u.k].mv,(u.fly>0&&!R[u.k].pf)?2:0,u.awk>0?2:0),r=[];
-  if(turn!==u.team||P[u.team].mp<1||dis(u))return r;
+  if(turn!==u.team||dis(u))return r;
+  if(R[u.k].freeMove){if(u.fm)return r}else if(P[u.team].mp<1)return r;
   for(let x=u.x-m;x<=u.x+m;x++)for(let y=u.y-m;y<=u.y+m;y++)
     if(x>=0&&y>=0&&x<10&&y<10&&open(u,x,y))r.push([x,y]);
   return r;
@@ -981,6 +1041,7 @@ function cellsFor(u,s){
     else if(s.k==="N"){if(cs.has(k))r.push([x,y])}
     else if(s.k==="z"){if(d<=s.r&&!CZ.pc.some(c=>c[2]===u.team&&c[0]===x&&c[1]===y))r.push([x,y])}
     else if(s.k==="c"){if(d>=1&&d<=s.r&&cs.has(k)&&open(u,x,y))r.push([x,y])}
+    else if(s.k==="H"){if(!at(x,y)&&WF.some(f=>f[2]===u.team&&f[0]===x&&f[1]===y))r.push([x,y])}
   }
   return r;
 }
@@ -1042,14 +1103,50 @@ function rain(u){
   FXLAG=keep;
 }
 
-function cast(u,si,tx,ty){
+/* ---------- The Scarecrow of Death: wheat fields, Scarecrows and the soul link ---------- */
+// WF = wheat fields [x,y,team]. A field is only a floor condition (walkable, no effect). Every team has its own fields and they may overlap.
+const MHP=u=>u.mhp||R[u.k].hp;                       // max HP (the soul link can lower it to 40)
+const wfSet=team=>{const s=new Set();WF.forEach(f=>{if(f[2]===team)s.add(f[0]+","+f[1])});return s};
+const scarecrowCount=team=>U.filter(x=>x.k==="scarecrow"&&x.team===team).length;
+// free neighbour cells (distance 1, not the unit's own cell) that are not yet a wheat field of its team
+function cellsW(u){
+  const r=[];
+  ADJ.forEach(d=>{const x=u.x+d[0],y=u.y+d[1];if(onBoard(x,y)&&!WF.some(f=>f[2]===u.team&&f[0]===x&&f[1]===y))r.push([x,y])});
+  return r;
+}
+function plantWF(team,cells,dl=0){
+  const add=cells.filter(c=>!WF.some(f=>f[2]===team&&f[0]===c[0]&&f[1]===c[1]));
+  add.forEach(c=>WF.push([c[0],c[1],team]));
+  if(add.length)addFx({type:"wheat",cells:add,dl});
+  return add.length;
+}
+// a Scarecrow walks for free (once per turn); everybody else pays 1 MP
+const payMove=u=>{if(R[u.k].freeMove)u.fm=1;else P[u.team].mp--};
+// Scarecrow Puppet: a soul-linked unit that would die swaps with a random Scarecrow of its team instead,
+// its max HP becomes 40, it is fully healed, every status is cleared and the link is removed.
+function soulSave(t){
+  const c=U.filter(e=>e.k==="scarecrow"&&e.team===t.team&&e!==t);
+  if(!c.length)return false;
+  const z=rnd(c),ox=t.x,oy=t.y;
+  addFx({type:"soulsave",x:ox,y:oy,x2:z.x,y2:z.y,dl:FXLAG});
+  t.x=z.x;t.y=z.y;z.x=ox;z.y=oy;
+  if(t.awk>0){const v=R[t.k].s.findIndex(q=>q.k==="v");if(v>=0)t.cd[v]=R[t.k].s[v].cd}
+  if(t.sz>0){const v=R[t.k].s.findIndex(q=>q.k==="x");if(v>=0)t.cd[v]=R[t.k].s[v].cd}
+  t.mhp=40;t.hp=40;t.sh=0;
+  t.st={poison:0,burn:0,bleed:0,stun:0,freeze:0,silent:0,regen:null};
+  t.stunned=false;t.aura=0;t.ww=0;t.awk=0;t.sz=0;t.soul=0;if(!R[t.k].pf)t.fly=0;
+  msg=R[t.k].n+" ถูกเชื่อมวิญญาณ สลับที่กับ Scarecrow · HP 40/40";
+  return true;
+}
+function cast(u,si,tx,ty,extra){
   const s=eff(u,si),T=at(tx,ty);
-  if(s.k==="m")P[u.team].mp--;else P[u.team].ap-=(s.cost!==undefined?s.cost:1);
+  if(s.mpc)P[u.team].mp-=s.mpc;else if(s.k==="m")P[u.team].mp--;else P[u.team].ap-=(s.cost!==undefined?s.cost:1);
   u.cd[si]=(s.k==="w"||s.k==="f"||s.k==="v"||s.k==="g"||s.k==="o"||s.k==="x")?0:s.cd;
   FXLAG=FXH[s.v]||0;
   if(s.k==="t"){
     showFx(u,s,T);
     const ok=hurt(u,T,s,s.d);
+    if(ok&&s.ls&&U.includes(u))heal(u,s.ls,false);
     if(s.chain&&over<0){
       const cs=U.filter(e=>e.team!==u.team&&e!==T&&targetable(e));
       if(cs.length){
@@ -1108,6 +1205,23 @@ function cast(u,si,tx,ty){
     const v={id:nid++,owner:u.id,team:u.team,x:tx,y:ty,left:5,hit:{}};
     VX.push(v);msg=R[u.k].n+" สร้างวังวน (Whirlpool)";
     pullVortex(v);
+  }else if(s.k==="W"){
+    const cs=[...(extra||[]),[tx,ty]];
+    plantWF(u.team,cs);msg=R[u.k].n+" ปลูก Wheat Field "+cs.length+" ช่อง";
+  }else if(s.k==="H"){
+    const own=WF.filter(f=>f[2]===u.team),ch=own.find(f=>f[0]===tx&&f[1]===ty);
+    const rm=[ch,...own.filter(f=>f!==ch).sort(()=>Math.random()-.5).slice(0,3)];
+    WF=WF.filter(f=>!rm.includes(f));
+    const z=mk("scarecrow",u.team,tx,ty);z.fm=1;z.ss=1;U.push(z);
+    addFx({type:"strawup",x:tx,y:ty});
+    const rest=rm.slice(1).map(f=>[f[0],f[1]]);if(rest.length)addFx({type:"wheatout",cells:rest,dl:250});
+    msg=R[u.k].n+" สร้าง Scarecrow · สลาย Wheat Field "+rm.length+" ช่อง";
+  }else if(s.k==="X"){
+    const ox=u.x,oy=u.y;addFx({type:"swapx",x:ox,y:oy,x2:T.x,y2:T.y});
+    u.x=T.x;u.y=T.y;T.x=ox;T.y=oy;msg=R[u.k].n+" สลับที่กับ Scarecrow (Scarecrow Mirage)";
+  }else if(s.k==="B"){
+    T.soul=1;u.pu=(u.pu||0)+1;addFx({type:"soulbind",x:u.x,y:u.y,x2:T.x,y2:T.y});
+    msg=R[u.k].n+" ผูกวิญญาณ "+R[T.k].n+" (Scarecrow Puppet "+u.pu+"/3)";
   }else if(s.k==="n"){
     CZ.rz.push({id:nid++,team:u.team,x:tx,y:ty});
     addFx({type:"nimbus",x:u.x,y:u.y,x2:tx,y2:ty});msg=R[u.k].n+" สร้างโซนฝน (Nimbocumulus)";
@@ -1133,31 +1247,31 @@ function render(){
   const meTeam=onlineGame?onlineMyTeam:0,enemyTeam=1-meTeam;
   const vis=U.filter(u=>!hidden(u)),me=vis.filter(u=>u.team===meTeam),en=vis.filter(u=>u.team===enemyTeam),u=sel?byId(sel):null;
   const mv=u&&mode<0?moves(u):[];
-  const sk=u&&mode>=0?eff(u,mode):null;
-  const tg=sk&&["t","p","h","r","L","g"].includes(sk.k)?targetsFor(u,mode):[];
-  const mc=sk&&["m","j"].includes(sk.k)?mcells(u,sk):sk&&sk.k==="q"?lineCells(u,sk):sk&&["n","N","z","c"].includes(sk.k)?cellsFor(u,sk):[];
-  const rows=a=>a.map(x=>`<div class="row ${x.team!==meTeam?"e":""} ${sel===x.id?"s":""}" data-r="${x.id}">${shape(x.k,x.team!==meTeam?1:0)}<div class="bar"><i style="width:${Math.max(0,x.hp)/R[x.k].hp*100}%"></i></div><small>${x.hp}</small></div>`).join("");
-  let cells="";const cm0=cloudSet(meTeam),ce0=cloudSet(1-meTeam),rnS=rainSet();WCELLS=[];const ctype=(vx,vy)=>{if(vx<0||vy<0||vx>9||vy>9)return"";const X=onlineGame&&meTeam===1?9-vx:vx,Y=onlineGame&&meTeam===1?9-vy:vy,k=X+","+Y;return cm0.has(k)?"cm":ce0.has(k)?"ce":""};
+  const sk=u&&mode>=0?eff(u,mode):null;if(!(sk&&sk.k==="W"))PW=[];
+  const tg=sk&&["t","p","h","r","L","g","X","B"].includes(sk.k)?targetsFor(u,mode):[];
+  const mc=sk&&["m","j"].includes(sk.k)?mcells(u,sk):sk&&sk.k==="q"?lineCells(u,sk):sk&&["n","N","z","c","H"].includes(sk.k)?cellsFor(u,sk):sk&&sk.k==="W"?cellsW(u).filter(c=>!PW.some(q=>q[0]===c[0]&&q[1]===c[1])):[];
+  const rows=a=>a.map(x=>`<div class="row ${x.team!==meTeam?"e":""} ${sel===x.id?"s":""}" data-r="${x.id}">${shape(x.k,x.team!==meTeam?1:0)}<div class="bar"><i style="width:${Math.max(0,x.hp)/MHP(x)*100}%"></i></div><small>${x.hp}</small></div>`).join("");
+  let cells="";const wm0=wfSet(meTeam),we0=wfSet(1-meTeam),wtype=(vx,vy)=>{if(vx<0||vy<0||vx>9||vy>9)return"";const X=onlineGame&&meTeam===1?9-vx:vx,Y=onlineGame&&meTeam===1?9-vy:vy,k=X+","+Y;return wm0.has(k)?"wm":we0.has(k)?"we":""};const cm0=cloudSet(meTeam),ce0=cloudSet(1-meTeam),rnS=rainSet();WCELLS=[];const ctype=(vx,vy)=>{if(vx<0||vy<0||vx>9||vy>9)return"";const X=onlineGame&&meTeam===1?9-vx:vx,Y=onlineGame&&meTeam===1?9-vy:vy,k=X+","+Y;return cm0.has(k)?"cm":ce0.has(k)?"ce":""};
   for(let vy=0;vy<10;vy++)for(let vx=0;vx<10;vx++){
     const x=onlineGame&&meTeam===1?9-vx:vx,y=onlineGame&&meTeam===1?9-vy:vy;
     const p0=at(x,y),p=p0&&!hidden(p0)?p0:null,isMv=mv.some(m=>m[0]===x&&m[1]===y);
     const cl=p&&tg.includes(p)?(p.team===meTeam?"al":"at"):"";
     const kk=x+","+y,ct=ctype(vx,vy),zc=ct+(ct?(ctype(vx,vy-1)!==ct?" bt":"")+(ctype(vx+1,vy)!==ct?" br":"")+(ctype(vx,vy+1)!==ct?" bb":"")+(ctype(vx-1,vy)!==ct?" bl":""):"")+(rnS.has(kk)?" rn":"");if(cm0.has(kk)||ce0.has(kk))WCELLS.push([vx,vy]);
-    let inner="";
+    let inner="";const wt=wtype(vx,vy);if(wt)inner=`<i class="wf ${wt}${wtype(vx,vy-1)!==wt?" bt":""}${wtype(vx+1,vy)!==wt?" br":""}${wtype(vx,vy+1)!==wt?" bb":""}${wtype(vx-1,vy)!==wt?" bl":""}"></i>`;
     if(p){
-      const ex=[p.team===meTeam&&p.ww>0?"ghost":"",p.fly>0?"fly":"",p.aura>0?"aura":"",p.sz>0?"sz":"",p.st.freeze>0?"frz":""].join(" "),ic=icons(p);
-      inner=shape(p.k,p.team!==meTeam?1:0,ex)+`<div class="hb"><i style="width:${Math.max(0,p.hp)/R[p.k].hp*100}%"></i></div>${p.sh?`<span class="sb">${p.sh}</span>`:""}${ic?`<span class="stb">${ic}</span>`:""}`;
+      const ex=[p.team===meTeam&&p.ww>0?"ghost":"",p.fly>0?"fly":"",p.aura>0?"aura":"",p.sz>0?"sz":"",p.soul?"sl":"",p.st.freeze>0?"frz":""].join(" "),ic=icons(p);
+      inner+=shape(p.k,p.team!==meTeam?1:0,ex)+`<div class="hb"><i style="width:${Math.max(0,p.hp)/MHP(p)*100}%"></i></div>${p.sh?`<span class="sb">${p.sh}</span>`:""}${ic?`<span class="stb">${ic}</span>`:""}`;
     }
     cells+=`<div class="cell ${(vx+vy)%2?"k":""} ${isMv?"mv":""} ${mc.some(c=>c[0]===x&&c[1]===y)?"mc":""} ${sk&&(sk.k==="a"||sk.k==="o")?"am":""} ${cl} ${zc} ${p&&p.id===sel?"sel":""}" data-x="${x}" data-y="${y}">${inner}</div>`;
   }
   let panel=`<div class="mu" style="text-align:center;margin-top:30%">แตะตัวหมากของคุณ<br>เพื่อดูข้อมูลและสกิล</div>`;
   if(u&&u.team===meTeam){
-    const d=R[u.k],ic=icons(u),stx=[ic,u.ww>0?"Wind-Walk":"",u.fly>0?ICON("wing")+" บิน":"",u.awk>0?ICON("awaken")+" Awakening "+(u.awk-1)+" เทิร์น":"",u.sz>0?ICON("overload")+" Super Zone เหลืออีก "+(u.sz-1)+" เทิร์น":"",d.pf&&!(u.fly>0)?"ลงพื้น (โดนระยะไกลไม่ได้)":"",u.aura?"ออร่าเหลือ "+u.aura+" ครั้ง":""].filter(Boolean).join(" ");
+    const d=R[u.k],ic=icons(u),stx=[ic,u.ww>0?"Wind-Walk":"",u.fly>0?ICON("wing")+" บิน":"",u.awk>0?ICON("awaken")+" Awakening "+(u.awk-1)+" เทิร์น":"",u.sz>0?ICON("overload")+" Super Zone เหลืออีก "+(u.sz-1)+" เทิร์น":"",u.soul?ICON("puppet")+" เชื่อมวิญญาณ":"",u.k==="scarecrowd"?ICON("puppet")+" Puppet เหลือ "+(3-(u.pu||0))+" ครั้ง":"",d.pf&&!(u.fly>0)?"ลงพื้น (โดนระยะไกลไม่ได้)":"",u.aura?"ออร่าเหลือ "+u.aura+" ครั้ง":""].filter(Boolean).join(" ");
     let skills="";
     if(u.st.silent>0)skills=`<div class="ps" style="font-size:1.1em;text-align:center">${ICON("silent")} ถูกใบ้</div>`;
     else skills=d.s.map((s0,i)=>{const sk0=eff(u,i);return `<button class="sk ${mode===i?"on":""}" data-s="${i}" ${usable(u,i)?"":"disabled"}><span class="i">${ICON(sk0.i)}</span><span><b>${sk0.n}</b><small>${u.cd[i]>0?"cooldown "+u.cd[i]:info(sk0)}</small>${sk0.x&&u.cd[i]<1?`<small>${sk0.x}</small>`:""}${sk0.tags?`<small class="tg">${sk0.tags.map(g=>TAGN[g]||g).join(" · ")}</small>`:""}</span></button>`}).join("");
     panel=`<div class="por">${shape(u.k,0)}<div><div class="nm">${d.n}</div><small class="mu">${RAR[d.rar]} · Pop ${d.pop}</small></div></div>
-    <div class="hp">${ICON("heart")}<div class="bar" style="flex:1"><i style="width:${u.hp/d.hp*100}%"></i></div><b>${u.hp}/${d.hp}</b></div>
+    <div class="hp">${ICON("heart")}<div class="bar" style="flex:1"><i style="width:${u.hp/MHP(u)*100}%"></i></div><b>${u.hp}/${MHP(u)}</b></div>
     ${u.sh?`<div class="ps">${ICON("shield")} โล่ ${u.sh}</div>`:""}${stx?`<div class="ps">สถานะ: ${stx}</div>`:""}
     ${dis(u)?`<div class="ps">ใช้ตัวนี้ไม่ได้ในตานี้</div>`:""}
     ${d.pas?`<div class="ps">✦ ${d.pas}</div>`:""}<hr>${skills}
@@ -1202,10 +1316,15 @@ function cellClick(x,y){
     if(mode>=0){
       const s=eff(u,mode);
       if(usable(u,mode)){
-        const ok=s.k==="a"||s.k==="o"||(["m","j"].includes(s.k)&&mcells(u,s).some(c=>c[0]===x&&c[1]===y))||(s.k==="q"&&lineCells(u,s).some(c=>c[0]===x&&c[1]===y))||(["n","N","z","c"].includes(s.k)&&cellsFor(u,s).some(c=>c[0]===x&&c[1]===y))||(p&&targetsFor(u,mode).includes(p));
+        if(s.k==="W"&&cellsW(u).some(c=>c[0]===x&&c[1]===y)&&!PW.some(q=>q[0]===x&&q[1]===y)){
+          const left=cellsW(u).filter(c=>!(c[0]===x&&c[1]===y)&&!PW.some(q=>q[0]===c[0]&&q[1]===c[1]));
+          if(PW.length>=1||!left.length){const prev=PW;PW=[];cast(u,mode,x,y,prev);mode=-1;render();broadcastGameState();return}
+          PW.push([x,y]);render();return;
+        }
+        const ok=s.k==="a"||s.k==="o"||(["m","j"].includes(s.k)&&mcells(u,s).some(c=>c[0]===x&&c[1]===y))||(s.k==="q"&&lineCells(u,s).some(c=>c[0]===x&&c[1]===y))||(["n","N","z","c","H"].includes(s.k)&&cellsFor(u,s).some(c=>c[0]===x&&c[1]===y))||(p&&targetsFor(u,mode).includes(p));
         if(ok){cast(u,mode,x,y);mode=-1;render();broadcastGameState();return}
       }
-    }else if(moves(u).some(m=>m[0]===x&&m[1]===y)){enter(u,x,y);P[meTeam].mp--;render();broadcastGameState();return}
+    }else if(moves(u).some(m=>m[0]===x&&m[1]===y)){enter(u,x,y);payMove(u);render();broadcastGameState();return}
   }
   if(p)return choose(p.id);
   sel=null;mode=-1;render();
@@ -1223,9 +1342,9 @@ function botAct(){
   const mine=U.filter(u=>u.team===1),foes=U.filter(u=>u.team===0&&targetable(u));
   if(!mine.length||!U.some(u=>u.team===0))return false;
   const p=P[1];
-  if(p.ap>0){
+  if(p.ap>0||p.mp>0){
     let best=null;
-    const cand=(u,si,x,y,sc)=>{if(!best||sc>best.sc)best={u,si,x,y,sc}};
+    const cand=(u,si,x,y,sc,ex)=>{if(!best||sc>best.sc)best={u,si,x,y,sc,ex}};
     mine.forEach(u=>R[u.k].s.forEach((s0,si)=>{
       if(!usable(u,si))return;
       const s=eff(u,si);
@@ -1251,21 +1370,25 @@ function botAct(){
         }
       }
       else if(s.k==="j")mcells(u,s).forEach(c=>{let sc=0;ADJ.forEach(d=>{const t=at(c[0]+d[0],c[1]+d[1]);if(t&&t.team===0&&!(t.fly>0))sc+=s.d});if(sc>0)cand(u,si,c[0],c[1],sc)});
-      else if(s.k==="h")targetsFor(u,si).forEach(t=>{const miss=R[t.k].hp-t.hp;if(miss>=4)cand(u,si,t.x,t.y,Math.min(s.heal,miss)+(t.hp<R[t.k].hp/2?4:0))});
-      else if(s.k==="r")targetsFor(u,si).forEach(t=>{if(R[t.k].hp-t.hp>=10)cand(u,si,t.x,t.y,7)});
+      else if(s.k==="h")targetsFor(u,si).forEach(t=>{const miss=MHP(t)-t.hp;if(miss>=4)cand(u,si,t.x,t.y,Math.min(s.heal,miss)+(t.hp<MHP(t)/2?4:0))});
+      else if(s.k==="r")targetsFor(u,si).forEach(t=>{if(MHP(t)-t.hp>=10)cand(u,si,t.x,t.y,7)});
       else if(s.k==="p")targetsFor(u,si).forEach(t=>{if(t.team===0)cand(u,si,t.x,t.y,3+t.st.poison)});
-      else if(s.k==="n")cellsFor(u,s).forEach(c=>{let sc=0;const nr=e=>Math.max(Math.abs(e.x-c[0]),Math.abs(e.y-c[1]))<=1;foes.forEach(e=>{if(nr(e))sc+=4});mine.forEach(a=>{if(nr(a)&&R[a.k].hp-a.hp>=2)sc+=2});if(sc>=4)cand(u,si,c[0],c[1],sc)});
+      else if(s.k==="n")cellsFor(u,s).forEach(c=>{let sc=0;const nr=e=>Math.max(Math.abs(e.x-c[0]),Math.abs(e.y-c[1]))<=1;foes.forEach(e=>{if(nr(e))sc+=4});mine.forEach(a=>{if(nr(a)&&MHP(a)-a.hp>=2)sc+=2});if(sc>=4)cand(u,si,c[0],c[1],sc)});
       else if(s.k==="N")cellsFor(u,s).forEach(c=>{const n=foes.filter(e=>Math.max(Math.abs(e.x-c[0]),Math.abs(e.y-c[1]))<=3&&canHit(STRIKE,e)).length;if(n)cand(u,si,c[0],c[1],6+n*2)});
       else if(s.k==="z"){let b=null;cellsFor(u,s).forEach(c=>{const g=foes.length?Math.min(...foes.map(e=>Math.hypot(e.x-c[0],e.y-c[1]))):9;if(!b||g<b.g)b={c,g}});if(b)cand(u,si,b.c[0],b.c[1],1)}
       else if(s.k==="x"){if(foes.some(e=>dist(u,e)<=5))cand(u,si,0,0,5)}
+      else if(s.k==="W"){const c=cellsW(u);if(c.length){const a=rnd(c),b=c.filter(q=>q!==a);cand(u,si,a[0],a[1],1.5,b.length?[rnd(b)]:[])}}
+      else if(s.k==="H"){cellsFor(u,s).forEach(c=>cand(u,si,c[0],c[1],7-(foes.length?Math.min(...foes.map(e=>dist({x:c[0],y:c[1]},e))):9)*.1))}
+      else if(s.k==="X"){if(u.hp<MHP(u)*.5&&foes.length){const nd=q=>Math.min(...foes.map(e=>dist(q,e)));const z=targetsFor(u,si).sort((a,b)=>nd(b)-nd(a))[0];if(z&&nd(z)>nd(u))cand(u,si,z.x,z.y,6)}}
+      else if(s.k==="B"){if(!mine.some(m=>m.soul)&&scarecrowCount(1)>0){const z=targetsFor(u,si).sort((a,b)=>MHP(b)-MHP(a))[0];if(z)cand(u,si,z.x,z.y,4)}}
     }));
-    if(best){cast(best.u,best.si,best.x,best.y);return true}
+    if(best){cast(best.u,best.si,best.x,best.y,best.ex);return true}
   }
-  if(p.mp>0&&foes.length){
+  if((p.mp>0||mine.some(x=>R[x.k].freeMove&&!x.fm))&&foes.length){
     let b=null;
     const nd=(x,y)=>Math.min(...foes.map(e=>Math.hypot(e.x-x,e.y-y)));
     mine.forEach(u=>{const cur=nd(u.x,u.y);moves(u).forEach(m=>{const g=cur-nd(m[0],m[1]);if(g>0.01&&(!b||g>b.g))b={u,m,g}})});
-    if(b){enter(b.u,b.m[0],b.m[1]);P[1].mp--;return true}
+    if(b){enter(b.u,b.m[0],b.m[1]);payMove(b.u);return true}
   }
   return false;
 }
@@ -1313,7 +1436,7 @@ function updateLobbyPlayers(players){
 function backToLobby(message,inRoom){
   onlineStarted=false;onlineGame=false;onlineSubmitted=false;onlineRematchSent=false;onlineRematchOpp=false;onlineReady=false;
   stopDeploy();
-  U=[];over=-1;FX=[];fxOut=[];CZ={pc:[],rz:[]};sel=null;mode=-1;msg="";pick=[];
+  U=[];over=-1;FX=[];fxOut=[];CZ={pc:[],rz:[]};WF=[];sel=null;mode=-1;msg="";pick=[];
   $("g").innerHTML="";$("su").style.display="none";
   $("onlineLobby").style.display="flex";
   if(!inRoom){onlineRoom=null;onlinePlayer=0}
@@ -1331,11 +1454,11 @@ function returnToBoardArena(){
 // Sends the current snapshot plus the visual effects produced since the last snapshot.
 function broadcastGameState(){
   if(!onlineGame||applyingRemoteState||!onlineSocket?.connected||!onlineRoom)return;
-  onlineSocket.emit("game_state",{roomCode:onlineRoom,state:{U,P,turn,over,nid,msg,VX,CZ,fx:fxOut}});
+  onlineSocket.emit("game_state",{roomCode:onlineRoom,state:{U,P,turn,over,nid,msg,VX,CZ,WF,fx:fxOut}});
   fxOut=[];
 }
 function startOnlineGame(data){
-  onlineGame=true;onlinePicks=data.picks;onlineMyTeam=onlinePlayer-1;U=[];over=-1;nid=1;msg="เกมเริ่มแล้ว";FX=[];fxOut=[];VX=[];CZ={pc:[],rz:[]};sel=null;mode=-1;
+  onlineGame=true;onlinePicks=data.picks;onlineMyTeam=onlinePlayer-1;U=[];over=-1;nid=1;msg="เกมเริ่มแล้ว";FX=[];fxOut=[];VX=[];CZ={pc:[],rz:[]};WF=[];sel=null;mode=-1;
   onlineRematchSent=false;onlineRematchOpp=false;
   stopDeploy();
   setArena(Number.isInteger(data.theme)?data.theme:0);resetTurnClock();msg="เกมเริ่มแล้ว · สนาม: "+ARENA[arena].n;
@@ -1397,7 +1520,7 @@ function connectOnlineLobby(){
     applyingRemoteState=true;
     try{
       const st=data.state;
-      U=st.U;P=st.P;turn=st.turn;over=st.over;nid=st.nid;VX=st.VX||[];CZ=st.CZ||{pc:[],rz:[]};msg=st.msg||"";sel=null;mode=-1;
+      U=st.U;P=st.P;turn=st.turn;over=st.over;nid=st.nid;VX=st.VX||[];CZ=st.CZ||{pc:[],rz:[]};WF=st.WF||[];msg=st.msg||"";sel=null;mode=-1;
       (st.fx||[]).forEach(f=>addFx(f));
       render();
     }finally{applyingRemoteState=false}
@@ -1405,7 +1528,7 @@ function connectOnlineLobby(){
   onlineSocket.on("rematch_requested",()=>{onlineRematchOpp=true;if(over>=0)render();});
   onlineSocket.on("rematch_start",()=>{
     stopDeploy();
-    U=[];over=-1;FX=[];fxOut=[];CZ={pc:[],rz:[]};sel=null;mode=-1;msg="";pick=[];
+    U=[];over=-1;FX=[];fxOut=[];CZ={pc:[],rz:[]};WF=[];sel=null;mode=-1;msg="";pick=[];
     onlineSubmitted=false;onlineRematchSent=false;onlineRematchOpp=false;
     $("g").innerHTML="";
     setup();
