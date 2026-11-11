@@ -1199,7 +1199,7 @@ function cast(u,si,tx,ty,extra){
     cs.forEach(c=>{const t=at(c[0],c[1]);if(t&&t.team!==u.team&&over<0)hurt(u,t,s,s.d)});
   }else if(s.k==="g"){
     addFx({type:"bubble",x:u.x,y:u.y,x2:T.x,y2:T.y});
-    T.sh+=s.sh;u.st.silent=2;
+    T.sh+=s.sh;u.st.silent=1;
     msg=R[u.k].n+" ใช้ "+s.n+(T===u?"":" ให้ "+R[T.k].n)+" · โล่ +"+s.sh+" แต่ติดใบ้";
   }else if(s.k==="o"){
     const v={id:nid++,owner:u.id,team:u.team,x:tx,y:ty,left:5,hit:{}};
