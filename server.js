@@ -19,7 +19,7 @@ app.get("/health", (_req, res) => res.json({ ok: true, service: "Zhess X" }));
 // slot 0 = Player 1 (team 0), slot 1 = Player 2 (team 1). The slot never changes while a player stays in the room.
 const rooms = new Map();
 const CODE_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-const POPULATION = { sword: 2, archer: 2, mage: 3, shield: 2, meric: 3, assassin: 3, witch: 3, redscales: 6, jugger: 4, hunter: 5, leviathan: 5, nimbora: 5, scarecrowd: 5 };
+const POPULATION = { sword: 2, archer: 2, mage: 3, shield: 2, meric: 3, assassin: 3, witch: 3, redscales: 5, jugger: 4, hunter: 4, leviathan: 5, nimbora: 5, scarecrowd: 5 };
 
 // Deployment phase: each player secretly places their own units on their two back rows, then both layouts are revealed together.
 const DEPLOY_SECONDS = 60, DEPLOY_GRACE_MS = 6000;
