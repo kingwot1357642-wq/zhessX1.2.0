@@ -49,3 +49,17 @@
 - Overload: Super Zone for 4 turns not counting the cast turn (personal cloud 5x5, every cloud cell rains at the start of each of her turns; CD 4 starts when it ends).
 - Rain: allies in the rain heal 1-2 (Beast Hunter halved), enemies take 1-2 unblockable water damage (not hidden units); 20% for one random enemy in the rain to be struck by lightning. Lightning Strike: 8 magic (ground tag), 40% chain 6, then 20% chain 4; chains hit any non-hidden enemy (flying too) and never the same unit twice. Bolts never hurt allies.
 - State: `CZ = {pc, rz}` is sent with every game state like `VX`. The bot can use Nimbora.
+
+## v6 additions
+- The Scarecrow of Death (Epic, HP 120, move 1, pop 5; tags spirit/straw/dark; fire damage +100%, earth/wind/water -20%) and the summoned Scarecrow (HP 25, move 1, free walk once per turn, fire +100%; it has `summon:1`, so it is not offered in team selection and costs no pop).
+- Files: `img/char/scarecrowd.svg`, `img/char/scarecrow.svg`, icons `wheatsoul`, `reaper`, `handmade`, `mirage`, `puppet`, `soulfist`; `scarecrowd: 5` added to `POPULATION` in `server.js`.
+- Wheat fields: `WF = [[x,y,team],...]` (sent with every game state like `CZ`). A field is only a floor condition: walkable, no effect, no blocking. Each team owns its own fields and they may overlap; if both exist on a cell the viewer's own is drawn. Gold = yours, copper = the opponent's, each region has a dashed outline.
+- Farmer Spirit: at the start of the owner's turn, 75% to plant one field on a free neighbouring cell (distance 1).
+- Wheat Master's Soul: pick 2 neighbouring cells (two clicks; one is enough when only one cell is free), CD 1.
+- The Reaper of Death: 7 high-level magic, melee + ground, no cooldown.
+- Handmade Scarecrow: pick an empty own field, a Scarecrow appears on it and that field plus 3 random own fields vanish. Needs more than 3 own fields and fewer than 5 own Scarecrows; CD 3, and the cooldown does not tick while you have 5 Scarecrows. A new Scarecrow cannot move or act until your next turn.
+- Scarecrow Mirage: swap places with one of your Scarecrows, 1 MP, CD 3.
+- Scarecrow Puppet: link a teammate (not herself, 3 uses per game, no cooldown). If a linked unit would die, the damage is cancelled: it swaps places with a random Scarecrow of its team, its max HP becomes 40, it is fully healed, every status is cleared and the link is removed. With no Scarecrow on the board the link does nothing and the unit dies normally.
+- Soul Steal Fist (Scarecrow): 7 high-level magic, pierce (cannot be blocked/parried, shields still absorb), heals itself 4, 1 MP, CD 1.
+- New unit fields used by the rules: `mhp` (max HP override, use `MHP(u)`), `soul`, `pu`, `fm`, `ss`; skill fields `mpc` (cost in MP), `pierce`, `ls` (life steal); unit field `freeMove`.
+- Also fixed (v5): skill effects and damage numbers were hidden while a Whirlpool was active (`.fxs` is now `position:absolute`).
